@@ -1,0 +1,21 @@
+<h1>Tasks#index</h1>
+<p>Find me in app/views/tasks/index.html.erb</p>
+
+<div>
+  <%= link_to "add task", tasks_add_path %>
+</div>
+
+<ul id="tasks">
+  <% @tasks.each do |task| %>
+    <li id="task-<%= task.id %>" class="task">
+      <%= task.name %><br>
+      <div>
+      <%= task.detail %>
+      </div>
+      <% if task.current %>
+      current task
+      <% end %>
+      <input type="button" class="finish_task" id="finish-task-<%= task.id %>" value="finish">
+    </li>
+  <% end %>
+</ul>

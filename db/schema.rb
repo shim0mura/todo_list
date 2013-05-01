@@ -11,18 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130420094034) do
+ActiveRecord::Schema.define(version: 20130424072300) do
 
   create_table "positions", force: true do |t|
     t.integer  "user_id",    null: false
     t.string   "position",   null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "task_groups", force: true do |t|
-    t.string   "name",       limit: 30, null: false
-    t.text     "detail",                null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -32,17 +25,19 @@ ActiveRecord::Schema.define(version: 20130420094034) do
     t.text     "detail"
     t.integer  "estimate",   limit: 2
     t.datetime "limit"
-    t.integer  "group_id"
     t.boolean  "finished",              default: false
     t.boolean  "current",               default: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_id"
   end
 
   create_table "users", force: true do |t|
-    t.string   "name",       null: false
+    t.string   "name",               null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "encrypted_password"
+    t.string   "salt"
   end
 
 end

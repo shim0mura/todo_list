@@ -5,11 +5,16 @@ gem 'rails', '4.0.0.beta1'
 
 gem 'mysql2'
 
+gem 'bcrypt-ruby'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
   gem 'sass-rails',   '~> 4.0.0.beta1'
   gem 'coffee-rails', '~> 4.0.0.beta1'
+  gem 'jquery-ui-rails'
+  # unable to use in rails4
+  # gem 'jquery_datepicker'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   gem 'therubyracer', platforms: :ruby
@@ -28,6 +33,7 @@ gem 'jbuilder', '~> 1.0.1'
 group :development, :test do
   gem 'rspec-rails'
   gem 'spring'
+  gem 'pry'
 end
 
 # To use ActiveModel has_secure_password

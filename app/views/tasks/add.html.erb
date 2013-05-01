@@ -1,0 +1,41 @@
+<h1>Tasks#add</h1>
+<p>Find me in app/views/tasks/add.html.erb</p>
+
+<%= form_for(@task) do |f| %>
+  <div>
+    <%= f.label :name, "名前" %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div>
+    <%= f.label :detail, "詳細" %>
+    <%= f.text_area :detail %>
+  </div>
+
+  <div>
+    <%= f.label :limit, "期限" %>
+    <%= f.text_field :limit %>
+  </div>
+
+  <div>
+    <%= f.label :estimate, "見積り" %>
+    <%= f.text_field :estimate, :disabled => true %>
+  </div>
+
+
+  <ul id="tasks">
+    <% @defined_tasks.each do |task| %>
+      <li id="task-<%= task.id %>" class="task">
+        <%= task.name %><br>
+        <% if task.current %>
+        current task
+        <% end %>
+      </li>
+    <% end %>
+    <li id="task-xx">new_task</li>
+  </ul>
+
+  <%= hidden_field :position, :array %>
+
+  <%= f.submit %>
+<% end %>
