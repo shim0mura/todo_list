@@ -10,7 +10,10 @@
     <li id="task-<%= task.id %>" class="task">
       <%= task.name %><br>
       <div>
-      <%= task.detail %>
+      <%= simple_format(task.detail) %>
+      </div>
+      <div>
+        見積り:<%= task.estimate %>
       </div>
       <% if task.current %>
       current task

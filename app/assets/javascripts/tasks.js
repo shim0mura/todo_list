@@ -3,11 +3,13 @@ $(function(){
   $(document).on("page:change", enfinish_tasks);
   $(document).on("page:change", set_default_sort);
   $(document).on("page:change", set_datetime_picker);
+  $(document).on("page:change", set_time_picker);
 
   ensortable_tasks();
   enfinish_tasks();
   set_default_sort();
   set_datetime_picker();
+  set_time_picker();
 
   function enfinish_tasks(){
     console.log("ddd");
@@ -24,8 +26,16 @@ $(function(){
       )
     
     });
+  }
 
-  
+  function set_time_picker(){
+    console.log("eee");
+    $("#task_estimate").timepicker({
+      hourGrid: 2,
+      hourMax: 6,
+      minuteGrid: 10,
+      stepMinute: 10
+    });
   }
 
   function set_datetime_picker(){
