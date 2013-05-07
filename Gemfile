@@ -33,7 +33,16 @@ gem 'jbuilder', '~> 1.0.1'
 group :development, :test do
   gem 'rspec-rails'
   gem 'spring'
+
+  # デバッグ表示系
   gem 'pry'
+  gem 'pry-rails'
+  gem 'pry-nav'
+  gem 'pry-exception_explorer'
+  gem 'pry-stack_explorer'
+  gem 'pry-coolline'
+  gem 'hirb'
+  gem 'hirb-unicode'
 end
 
 # To use ActiveModel has_secure_password
