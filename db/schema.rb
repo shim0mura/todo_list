@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130507053845) do
+ActiveRecord::Schema.define(version: 20130512234437) do
 
   create_table "positions", force: true do |t|
     t.integer  "user_id",    null: false
@@ -30,6 +30,8 @@ ActiveRecord::Schema.define(version: 20130507053845) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
+    t.string   "parent_id"
+    t.string   "integer"
   end
 
   create_table "users", force: true do |t|
