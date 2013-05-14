@@ -2,26 +2,35 @@
 <p>Find me in app/views/tasks/add.html.erb</p>
 
 <%= form_for(@task) do |f| %>
-  <div>
-    <%= f.label :name, "名前" %>
-    <%= f.text_field :name %>
-  </div>
+  <ul id="nested_tasks">
+    <%# jq.ui.nestedSortableの命名規則にしたがってid指定 %>
+    <li id="task_xxx">
+      <div class="task_template" id="temp">
+        <div>
+          <%= f.label :name, "名前" %>
+          <%= f.text_field :name %>
+        </div>
 
-  <div>
-    <%= f.label :detail, "詳細" %>
-    <%= f.text_area :detail %>
-  </div>
+        <div>
+          <%= f.label :detail, "詳細" %>
+          <%= f.text_area :detail %>
+        </div>
 
-  <div>
-    <%= f.label :limit, "期限" %>
-    <%= f.text_field :limit %>
-  </div>
+        <%# datetimepickerの仕様でidを別物にしないと複数inputが効かないので明示的に指定 %>
+        <div class="date">
+          <%= f.label :limit, "期限" %>
+          <%= f.text_field :limit, :class => "date_picker", :id => "date_0" %>
+        </div>
 
-  <div>
-    <%= f.label :estimate, "見積り" %>
-    <%= f.text_field :estimate %>
-  </div>
-
+        <div class="time">
+          <%= f.label :estimate, "見積り" %>
+          <%= f.text_field :estimate, :class => "time_picker", :id => "time_0" %>
+        </div>
+        <%= f.hidden_field :parent_id %>
+        <input type="button" value="add child" class="add_child">
+      </div>
+    </li>
+  </ul>
 
   <ul id="tasks">
     <% @defined_tasks.each do |task| %>
