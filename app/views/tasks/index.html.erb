@@ -5,7 +5,7 @@
   <%= link_to "add task", tasks_add_path %>
 </div>
 
-<ul id="tasks">
+<ul id="arranged_tasks">
   <% @tasks.each do |task| %>
     <li id="task-<%= task.id %>" class="task">
       <%= task.name %><br>

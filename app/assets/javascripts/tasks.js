@@ -43,21 +43,28 @@ $(function(){
       num++;
       var self = this;
       var $wrapper = $(self).parent().parent();
-      //console.log($temp);
-      var $temp = $(self).parent()
+      var $temp = $(self).parent();
+      var parent_id = $temp.find(".tmp_id").val();
+      console.log(parent_id);
     $temp.find(".date_picker").removeClass("hasDatepicker").removeData("datepicker");
-      //$temp.datepicker("destroy");
+    $temp.find(".time_picker").removeClass("hasDatepicker").removeData("datepicker");
       $temp = $temp.clone(true);
       $temp.find(".date_picker")[0].id = "date_" + num;
+      $temp.find(".time_picker")[0].id = "time_" + num;
+      $temp.find(".parent_task")[0].id = "parent_task_" + num;
+      $temp.find(".parent_task")[0].value = parent_id;
+      $temp.find(".tmp_id")[0].value = num;
       var a = $("<li>").attr("id", "task_" + num).append($temp);
       var b = $("<ul>").append(a);
       $wrapper.append(b);
-    console.log($('#nested_tasks').nestedSortable("serialize"));
 
-      //$(c).datepicker({dateFormat: "yy-mm-dd"});
+      var positioned_task = $("<li>")
+        .attr("id", "task-000" + num)
+        .text(
+          $temp.find(".task_name").val()
+        );
+      $("#arranged_tasks").append(positioned_task);
 
-    //$("#date_1").off("click");
-    //$("#date_1").datetimepicker({dateFormat: "yy-mm-dd"});
     });
   }
 
@@ -80,7 +87,8 @@ $(function(){
 
   function set_time_picker(){
     console.log("eee");
-    $(".time").on("focusin", ".time_picker", function(e){
+    //$(".time").on("focusin", ".time_picker", function(e){
+    $(document).on("focusin", ".time_picker", function(e){
       $(this).timepicker({
         hourGrid: 2,
         hourMax: 6,
@@ -96,26 +104,24 @@ $(function(){
       //$(".hasDatapicker").each(function(){
         //$(this).removeClass("
       console.log("sss");
-      console.log(this);
-      $(this).datepicker({dateFormat: "yy-mm-dd"});
+      $(this).datetimepicker({dateFormat: "yy-mm-dd"});
     })
-    //$('#date_0').datetimepicker({dateFormat: "yy-mm-dd"});
   }
 
   function set_default_sort(){
     console.log("bbb");
-    $("#position_array").val($("#tasks").sortable("serialize"))
+    $("#position_array").val($("#arranged_tasks").sortable("serialize"))
   }
 
   function ensortable_tasks(){
     console.log("aaa")
-    $("#tasks").sortable({
+    $("#arranged_tasks").sortable({
       update: function(event, ui){
-        var sorted_array = $("#tasks").sortable("serialize");
+        var sorted_array = $("#arranged_tasks").sortable("serialize");
         $("#position_array").val(sorted_array);
         $.post(
           "sort/change",
-          $("#tasks").sortable("serialize"),
+          $("#arranged_tasks").sortable("serialize"),
           function(data){
             console.log(data);
             console.log(data.result);

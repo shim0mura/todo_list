@@ -8,31 +8,32 @@
       <div class="task_template" id="temp">
         <div>
           <%= f.label :name, "名前" %>
-          <%= f.text_field :name %>
+          <%= f.text_field :name, :class => "task_name", :name => "task[name][]" %>
         </div>
 
         <div>
           <%= f.label :detail, "詳細" %>
-          <%= f.text_area :detail %>
+          <%= f.text_area :detail, :name => "task[detail][]" %>
         </div>
 
         <%# datetimepickerの仕様でidを別物にしないと複数inputが効かないので明示的に指定 %>
         <div class="date">
           <%= f.label :limit, "期限" %>
-          <%= f.text_field :limit, :class => "date_picker", :id => "date_0" %>
+          <%= f.text_field :limit, :class => "date_picker", :id => "date_0", :name => "task[limit][]" %>
         </div>
 
         <div class="time">
           <%= f.label :estimate, "見積り" %>
-          <%= f.text_field :estimate, :class => "time_picker", :id => "time_0" %>
+          <%= f.text_field :estimate, :class => "time_picker", :id => "time_0", :name => "task[estimate][]" %>
         </div>
-        <%= f.hidden_field :parent_id %>
+        <%= f.hidden_field :parent_id, :class => "parent_task", :name => "task[:parent_id][]", :value => "" %>
+        <%= hidden_field_tag :tmp_id, "0", :class => "tmp_id", :name => "task[:tmp_id][]" %>
         <input type="button" value="add child" class="add_child">
       </div>
     </li>
   </ul>
 
-  <ul id="tasks">
+  <ul id="arranged_tasks">
     <% @defined_tasks.each do |task| %>
       <li id="task-<%= task.id %>" class="task">
         <%= task.name %><br>
@@ -41,7 +42,7 @@
         <% end %>
       </li>
     <% end %>
-    <li id="task-xx">new_task</li>
+    <li id="task-0000">new_task 0</li>
   </ul>
 
   <%= hidden_field :position, :array %>

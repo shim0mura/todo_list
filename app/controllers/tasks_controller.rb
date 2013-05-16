@@ -12,16 +12,30 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(new_task_params)
-    @task.user_id = @user
-    @task.limit = Time.parse(params[:task][:limit]).to_datetime
-    Task.transaction do
-      @task.save!
+    tasks = []
+    0.upto(params[:task][:name].size-1).each do |i|
+      task          = Task.new()
+      task.name     = params[:task][:name][i]
+      task.user_id  = @user
+      task.detail   = params[:task][:detail][i]
+      task.limit    = Time.parse(params[:task][:limit][i]).to_datetime
+      task.estimate = params[:task][:estimate][i]
+      task.tmp_id   = params[:task][:tmp_id][i]
+      tasks << task
+    end
 
+    Task.transaction do
+      task_ids = []
       @position = Position.where(:user_id => @user).first || Position.new(user_id: @user)
       position_array = Rack::Utils.parse_nested_query(params[:position][:array])
-      @position.set(@task.id, position_array["task"])
+
+      tasks.each do |task|
+        task.save!
+        @position.set(task.id, position_array["task"])
+      end
+
       @position.save!
+      raise
     end
     redirect_to :action => :index
   end
