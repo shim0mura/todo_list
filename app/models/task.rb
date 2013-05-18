@@ -1,5 +1,7 @@
 class Task < ActiveRecord::Base
   attr_accessor :tmp_id
+  attr_accessor :tmp_parent_id
+
   validates :name, presence: true, :length => {:maximum => 30}
 
   default_scope {where(finished: false)}
@@ -17,18 +19,8 @@ class Task < ActiveRecord::Base
     sorted_tasks
   end
 
-  def self.find_by_tmp_id(tasks, tmp_id)
-    tasks.detect do |task|
-      task.tmp_id == tmp_id
-    end
-  end
-
-  # THINK: 引数tasksはtaskの配列
-  #        task_relationみたいなの作るべき？
-  def self.sort_by_tmp_id(tasks, tmp_ids)
-    tmp_ids.map do |tmp_id|
-      find_by_tmp_id(task, tmp_id)
-    end
+  def self.find_by_tmp_id_from_tasks(tasks, tmp_id)
+    tasks.detect{|task| task.tmp_id == tmp_id}
   end
 
 end

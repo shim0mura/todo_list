@@ -26,8 +26,8 @@
           <%= f.label :estimate, "見積り" %>
           <%= f.text_field :estimate, :class => "time_picker", :id => "time_0", :name => "task[estimate][]" %>
         </div>
-        <%= f.hidden_field :parent_id, :class => "parent_task", :name => "task[:parent_id][]", :value => "" %>
-        <%= hidden_field_tag :tmp_id, "0", :class => "tmp_id", :name => "task[:tmp_id][]" %>
+        <%= f.hidden_field :parent_id, :class => "parent_task", :name => "task[parent_id][]", :value => "" %>
+        <%= hidden_field_tag :tmp_id, "0", :class => "tmp_id", :name => "task[tmp_id][]" %>
         <input type="button" value="add child" class="add_child">
       </div>
     </li>
@@ -42,7 +42,7 @@
         <% end %>
       </li>
     <% end %>
-    <li id="task-0000">new_task 0</li>
+    <li id="task-xxx0">new_task 0</li>
   </ul>
 
   <%= hidden_field :position, :array %>

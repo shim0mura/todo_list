@@ -14,29 +14,39 @@ class TasksController < ApplicationController
   def create
     tasks = []
     0.upto(params[:task][:name].size-1).each do |i|
-      task          = Task.new()
-      task.name     = params[:task][:name][i]
-      task.user_id  = @user
-      task.detail   = params[:task][:detail][i]
-      task.limit    = Time.parse(params[:task][:limit][i]).to_datetime
-      task.estimate = params[:task][:estimate][i]
-      task.tmp_id   = params[:task][:tmp_id][i]
+      task               = Task.new()
+      task.name          = params[:task][:name][i]
+      task.user_id       = @user
+      task.detail        = params[:task][:detail][i]
+      task.limit         = Time.parse(params[:task][:limit][i]).to_datetime
+      task.estimate      = params[:task][:estimate][i]
+      task.tmp_id        = params[:task][:tmp_id][i]
+      task.tmp_parent_id = params[:task][:parent_id][i]
       tasks << task
     end
 
+    # TODO: tmp_idはすべてxxx\d+という形式に変更
+    # タスク順序と合わせる
+
     Task.transaction do
       task_ids = []
+
+      tasks.each do |task|
+        unless task.tmp_parent_id.empty?
+          task.parent_id = Task.find_by_tmp_id_from_tasks(tasks, task.tmp_parent_id).id
+        end
+        task.save!
+      end
+
+      tmp_id_map = tasks.inject({}){|h, task| h[task.tmp_id] = task.id; h}
+
       @position = Position.where(:user_id => @user).first || Position.new(user_id: @user)
       position_array = Rack::Utils.parse_nested_query(params[:position][:array])
 
-      tasks.each do |task|
-        task.save!
-        @position.set(task.id, position_array["task"])
-      end
-
+      @position.set(tmp_id_map, position_array["task"])
       @position.save!
-      raise
     end
+
     redirect_to :action => :index
   end
 

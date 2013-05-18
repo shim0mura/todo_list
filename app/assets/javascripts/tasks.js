@@ -36,6 +36,12 @@ $(function(){
       expandOnHover: 700,
       startCollapsed: true,
       protectRoot: true,
+      isAllowed: function(item, parent){
+        var parent_id = $(parent).find(".tmp_id").val();
+        console.log("ppp"+parent_id);
+        $(item).find(".parent_task").val(parent_id);
+        return true;
+      }
 
     });
 
@@ -46,8 +52,9 @@ $(function(){
       var $temp = $(self).parent();
       var parent_id = $temp.find(".tmp_id").val();
       console.log(parent_id);
-    $temp.find(".date_picker").removeClass("hasDatepicker").removeData("datepicker");
-    $temp.find(".time_picker").removeClass("hasDatepicker").removeData("datepicker");
+      $temp.find(".date_picker").removeClass("hasDatepicker").removeData("datepicker");
+      $temp.find(".time_picker").removeClass("hasDatepicker").removeData("datepicker");
+
       $temp = $temp.clone(true);
       $temp.find(".date_picker")[0].id = "date_" + num;
       $temp.find(".time_picker")[0].id = "time_" + num;
@@ -59,12 +66,13 @@ $(function(){
       $wrapper.append(b);
 
       var positioned_task = $("<li>")
-        .attr("id", "task-000" + num)
+        .attr("id", "task-xxx" + num)
         .text(
           $temp.find(".task_name").val()
         );
       $("#arranged_tasks").append(positioned_task);
-
+      var sorted_array = $("#arranged_tasks").sortable("serialize");
+      $("#position_array").val(sorted_array);
     });
   }
 
