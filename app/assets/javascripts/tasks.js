@@ -38,7 +38,6 @@ $(function(){
       protectRoot: true,
       isAllowed: function(item, parent){
         var parent_id = $(parent).find(".tmp_id").val();
-        console.log("ppp"+parent_id);
         $(item).find(".parent_task").val(parent_id);
         return true;
       }
@@ -51,7 +50,6 @@ $(function(){
       var $wrapper = $(self).parent().parent();
       var $temp = $(self).parent();
       var parent_id = $temp.find(".tmp_id").val();
-      console.log(parent_id);
       $temp.find(".date_picker").removeClass("hasDatepicker").removeData("datepicker");
       $temp.find(".time_picker").removeClass("hasDatepicker").removeData("datepicker");
 
@@ -111,7 +109,6 @@ $(function(){
     $(document).on("focusin", ".date_picker", function(e){
       //$(".hasDatapicker").each(function(){
         //$(this).removeClass("
-      console.log("sss");
       $(this).datetimepicker({dateFormat: "yy-mm-dd"});
     })
   }
