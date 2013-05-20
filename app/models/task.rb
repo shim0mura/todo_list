@@ -2,6 +2,8 @@ class Task < ActiveRecord::Base
   attr_accessor :tmp_id
   attr_accessor :tmp_parent_id
 
+  acts_as_taggable
+
   validates :name, presence: true, :length => {:maximum => 30}
 
   default_scope {where(finished: false)}
