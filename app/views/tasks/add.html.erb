@@ -18,7 +18,7 @@
 
         <div>
           <%= f.label :tags, "タグ" %>
-          <%= f.text_field :estimate, :class => "time_picker", :id => "time_0", :name => "task[estimate][]" %>
+          <%= f.text_field :estimate, :id => "time_0", :name => "task[estimate][]" %>
         </div>
 
         <%# datetimepickerの仕様でidを別物にしないと複数inputが効かないので明示的に指定 %>
